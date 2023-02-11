@@ -1,25 +1,41 @@
-import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import React from 'react';
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  TextInput,
+} from 'react-native';
 
-const TaskModal = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [te, onChangeText] = React.useState('');
+interface TaskProps {
+  alertVisible: boolean;
+  // eslint-disable-next-line no-unused-vars
+  alertButton: (text: string) => void;
+}
+
+const TaskModal = (props: TaskProps) => {
+  const [value, onChangeText] = React.useState('');
   return (
     <Modal
-      animationType="slide"
+      animationType='slide'
       transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-        setModalVisible(!modalVisible);
-      }}>
+      visible={props.alertVisible}
+      onRequestClose={() => props.alertButton(value)}
+    >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Hello World!</Text>
+          <Text style={styles.titleText}>New Task</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            value={value}
+          />
           <Pressable
             style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={styles.textStyle}>Hide Modal</Text>
+            onPress={() => props.alertButton(value)}
+          >
+            <Text style={styles.textStyle}>Add Task</Text>
           </Pressable>
         </View>
       </View>
@@ -28,6 +44,10 @@ const TaskModal = () => {
 };
 
 const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -48,11 +68,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    width: '70%',
+    height: '20%',
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2,
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    right: 10,
+    alignItems: 'center',
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
@@ -68,6 +94,13 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    width: '100%',
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
 });
 

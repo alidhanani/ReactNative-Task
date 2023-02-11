@@ -10,20 +10,20 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ title: 'Welcome' }}
-          />
-          <Stack.Screen
-            name="Detail"
-            component={Detail}
-            options={{ title: 'Detail' }}
-          />
-        </Stack.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen
+          name='Home'
+          component={Home}
+          options={{ title: 'Tasks' }}
+        />
+        <Stack.Screen
+          name='Detail'
+          component={Detail}
+          options={{ title: 'Detail' }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default App;
