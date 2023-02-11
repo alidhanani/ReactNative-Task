@@ -1,23 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { MockData } from '../model';
 
-const Home =() => {
+type ItemProps = {title: string};
+
+const Item = ({title}: ItemProps) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
+
+const Home = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to stado!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={MockData.getInstance().getTasks()}
+        renderItem={({item}) => <Item title={item.Title} />}
+        keyExtractor={item => item.Title}
+      />
+      <Button
+        title="Add Tasks"
+        onPress={() => Alert.alert('Button with adjusted color pressed')}
+      />
+    </SafeAreaView>
   );
-}
-
-export default Home
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
   },
 });
+
+export default Home
