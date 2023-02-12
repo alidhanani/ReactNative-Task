@@ -12,6 +12,7 @@ interface HomeScreenProps {
 const Home = ({ navigation }: HomeScreenProps) => {
   const [visible, setVisible] = useState(false);
   const [reload, setReload] = useState(false);
+  const [check, setCheck] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -24,11 +25,12 @@ const Home = ({ navigation }: HomeScreenProps) => {
     if (reload) {
       setReload(false);
     }
-  }, [reload]);
+  }, [reload, check]);
   return (
     <SafeAreaView style={stylesHome.container}>
       <TaskModal
         alertVisible={visible}
+        alertCancel={() => setVisible(false)}
         alertButton={(value) => {
           if (!MockData.getInstance().titleExists(value)) {
             MockData.getInstance().setTasks({
@@ -50,6 +52,10 @@ const Home = ({ navigation }: HomeScreenProps) => {
             description={item.Time}
             checked={item.Checked}
             onClick={() => navigation.navigate('Detail', { ID: item.ID })}
+            onCheckClick={() => {
+              MockData.getInstance().updateTaskCheck(item.ID, !item.Checked);
+              setCheck(!item.Checked);
+            }}
           />
         )}
         keyExtractor={(item) => item.Title}

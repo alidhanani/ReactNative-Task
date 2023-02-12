@@ -24,6 +24,6 @@ export const stylesDetail = StyleSheet.create({
   textDescription: {
     paddingTop: 20,
     width: '100%',
-    fontSize: 12,
+    fontSize: 14,
   },
 });

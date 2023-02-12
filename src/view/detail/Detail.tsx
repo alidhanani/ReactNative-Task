@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Text, TouchableOpacity, View, Image, TextInput } from 'react-native';
 import { stylesDetail } from './Detail.style';
 import { MockData } from '../../model';
@@ -11,19 +11,28 @@ interface DetailScreenProps {
 
 const Detail = ({ route, navigation }: DetailScreenProps) => {
   const { ID } = route.params;
-  const value = MockData.getInstance().getTask(ID);
+  const [check, setCheck] = useState<boolean>(false);
 
   const onDelete = () => {
     MockData.getInstance().deleteTask(ID);
     navigation.goBack();
   };
 
+  const value = useMemo(() => {
+    let data = MockData.getInstance().getTask(ID);
+    setCheck(data ? data.Checked : false);
+    return data;
+  }, [check]);
+
   return (
     <View style={stylesDetail.item}>
       <View style={stylesDetail.leftItem}>
         <CheckBox
-          isChecked={value ? value.Checked : false}
-          onPress={() => null}
+          isChecked={check}
+          onPress={() => {
+            MockData.getInstance().updateTaskCheck(ID, !value?.Checked);
+            setCheck(!check);
+          }}
         />
         <TouchableOpacity
           onPress={() => onDelete()}
@@ -37,20 +46,25 @@ const Detail = ({ route, navigation }: DetailScreenProps) => {
       </View>
 
       <View style={stylesDetail.subitem}>
-        <Text style={stylesDetail.title}>{value?.Title}</Text>
+        <TextInput
+          style={stylesDetail.title}
+          defaultValue={value?.Title}
+          onChangeText={(valueText) =>
+            MockData.getInstance().updateTaskTitle(ID, valueText)
+          }
+        />
         <Text style={stylesDetail.subtitle}>{value?.Time}</Text>
         <TextInput
           style={stylesDetail.textDescription}
           defaultValue={value?.Description}
-          onChangeText={(valueText) =>
-            MockData.getInstance().updateTask(ID, {
-              ID: ID,
-              Title: value ? value.Title : '',
-              Time: new Date().toDateString(),
-              Description: valueText,
-              Checked: false,
-            })
-          }
+          multiline
+          onChangeText={(valueText) => {
+            MockData.getInstance().updateTaskDescription(ID, valueText);
+            MockData.getInstance().updateTaskDate(
+              ID,
+              new Date().toDateString()
+            );
+          }}
         />
       </View>
     </View>

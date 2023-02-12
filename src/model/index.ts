@@ -43,7 +43,7 @@ class MockData {
 
   updateTaskTitle(id: number, title: string) {
     const index = tasks.findIndex((value) => value.ID === id);
-    if (index) tasks[index].Title = title;
+    tasks[index].Title = title;
   }
 
   updateTaskDescription(id: number, description: string) {

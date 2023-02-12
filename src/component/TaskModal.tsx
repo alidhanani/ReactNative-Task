@@ -12,6 +12,7 @@ interface TaskProps {
   alertVisible: boolean;
   // eslint-disable-next-line no-unused-vars
   alertButton: (text: string) => void;
+  alertCancel: () => void;
 }
 
 const TaskModal = (props: TaskProps) => {
@@ -32,8 +33,20 @@ const TaskModal = (props: TaskProps) => {
             value={value}
           />
           <Pressable
+            style={[styles.buttonCancel]}
+            onPress={() => {
+              props.alertCancel();
+              onChangeText('');
+            }}
+          >
+            <Text style={styles.textStyle}>Cancel Task</Text>
+          </Pressable>
+          <Pressable
             style={[styles.button, styles.buttonClose]}
-            onPress={() => props.alertButton(value)}
+            onPress={() => {
+              props.alertButton(value);
+              onChangeText('');
+            }}
           >
             <Text style={styles.textStyle}>Add Task</Text>
           </Pressable>
@@ -48,6 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  buttonGroup: {},
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -76,9 +90,19 @@ const styles = StyleSheet.create({
     padding: 10,
     position: 'absolute',
     bottom: 10,
-    left: 10,
+    width: '50%',
     right: 10,
     alignItems: 'center',
+  },
+  buttonCancel: {
+    borderRadius: 20,
+    padding: 10,
+    position: 'absolute',
+    bottom: 10,
+    width: '50%',
+    left: 10,
+    alignItems: 'center',
+    backgroundColor: '#c91029',
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
