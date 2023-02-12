@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, FlatList, SafeAreaView } from 'react-native';
 import { MockData } from '../../model';
 import TaskModal from '../../component/TaskModal';
@@ -11,6 +11,20 @@ interface HomeScreenProps {
 
 const Home = ({ navigation }: HomeScreenProps) => {
   const [visible, setVisible] = useState(false);
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setReload(true);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    if (reload) {
+      setReload(false);
+    }
+  }, [reload]);
   return (
     <SafeAreaView style={stylesHome.container}>
       <TaskModal
@@ -35,7 +49,7 @@ const Home = ({ navigation }: HomeScreenProps) => {
             title={item.Title}
             description={item.Time}
             checked={item.Checked}
-            onClick={() => navigation.navigate('Detail')}
+            onClick={() => navigation.navigate('Detail', { ID: item.ID })}
           />
         )}
         keyExtractor={(item) => item.Title}

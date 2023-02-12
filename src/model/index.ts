@@ -1,4 +1,21 @@
-import { Task, tasks } from './Task';
+import { Task } from './Task';
+
+let tasks: Task[] = [
+  {
+    ID: 0,
+    Title: 'Title',
+    Description: 'XXXXX',
+    Checked: false,
+    Time: '9/2/2019',
+  },
+  {
+    ID: 1,
+    Title: 'Title :D',
+    Description: 'XXXXX',
+    Checked: false,
+    Time: '9/2/2019',
+  },
+];
 
 class MockData {
   private static instance: MockData;
@@ -30,8 +47,7 @@ class MockData {
   }
 
   deleteTask(id: number) {
-    const index = tasks.findIndex((value) => value.ID === id);
-    tasks.slice(index, 1);
+    tasks = tasks.filter((item) => item.ID !== id);
   }
 
   updateTask(id: number, task: Task) {

@@ -9,20 +9,3 @@ const Taskes = z.object({
 });
 
 export type Task = z.infer<typeof Taskes>;
-
-export const tasks: Task[] = [
-  {
-    ID: 0,
-    Title: 'Title',
-    Description: 'XXXXX',
-    Checked: false,
-    Time: '9/2/2019',
-  },
-  {
-    ID: 1,
-    Title: 'Title :D',
-    Description: 'XXXXX',
-    Checked: false,
-    Time: '9/2/2019',
-  },
-];
