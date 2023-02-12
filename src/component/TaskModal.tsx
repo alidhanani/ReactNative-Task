@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     width: '70%',
-    height: '20%',
+    height: 200,
   },
   button: {
     borderRadius: 20,
