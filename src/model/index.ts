@@ -1,21 +1,6 @@
 import { Task } from './Task';
 
-let tasks: Task[] = [
-  {
-    ID: 0,
-    Title: 'Title',
-    Description: 'XXXXX',
-    Checked: false,
-    Time: '9/2/2019',
-  },
-  {
-    ID: 1,
-    Title: 'Title :D',
-    Description: 'XXXXX',
-    Checked: false,
-    Time: '9/2/2019',
-  },
-];
+let tasks: Task[] = [];
 
 class MockData {
   private static instance: MockData;
@@ -34,6 +19,7 @@ class MockData {
 
   getTask(id: number): Task | null {
     const value = tasks.find((value) => value.ID === id);
+
     return value ? value : null;
   }
 
@@ -53,6 +39,26 @@ class MockData {
   updateTask(id: number, task: Task) {
     const index = tasks.findIndex((value) => value.ID === id);
     tasks[index] = task;
+  }
+
+  updateTaskTitle(id: number, title: string) {
+    const index = tasks.findIndex((value) => value.ID === id);
+    if (index) tasks[index].Title = title;
+  }
+
+  updateTaskDescription(id: number, description: string) {
+    const index = tasks.findIndex((value) => value.ID === id);
+    tasks[index].Description = description;
+  }
+
+  updateTaskDate(id: number, date: string) {
+    const index = tasks.findIndex((value) => value.ID === id);
+    tasks[index].Time = date;
+  }
+
+  updateTaskCheck(id: number, checked: boolean) {
+    const index = tasks.findIndex((value) => value.ID === id);
+    tasks[index].Checked = checked;
   }
 }
 
