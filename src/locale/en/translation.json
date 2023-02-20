@@ -1,0 +1,16 @@
+{
+  "translation": {
+    "home": {
+      "button": {
+        "title": "Add Tasks"
+      },
+      "modal": {
+        "title": "New Task",
+        "button": {
+          "cancel": "Cancel Task",
+          "add": "Add Task"
+        }
+      }
+    }
+  }
+}

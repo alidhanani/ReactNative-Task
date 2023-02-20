@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  Modal,
-  StyleSheet,
-  Text,
-  Pressable,
-  View,
-  TextInput,
-} from 'react-native';
+import { Modal, Text, Pressable, View, TextInput } from 'react-native';
+import { Locale } from '../locale';
+import modalStyle from './TaskModal.style';
 
 interface TaskProps {
   alertVisible: boolean;
@@ -17,6 +12,7 @@ interface TaskProps {
 
 const TaskModal = (props: TaskProps) => {
   const [value, onChangeText] = React.useState('');
+  const { t } = Locale();
   return (
     <Modal
       animationType='slide'
@@ -24,108 +20,40 @@ const TaskModal = (props: TaskProps) => {
       visible={props.alertVisible}
       onRequestClose={() => props.alertButton(value)}
     >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.titleText}>New Task</Text>
+      <View style={modalStyle.centeredView}>
+        <View style={modalStyle.modalView}>
+          <Text style={modalStyle.titleText}>{t('home.modal.title')}</Text>
           <TextInput
-            style={styles.input}
+            style={modalStyle.input}
             onChangeText={onChangeText}
             value={value}
           />
           <Pressable
-            style={[styles.buttonCancel]}
+            style={[modalStyle.buttonCancel]}
             onPress={() => {
               props.alertCancel();
               onChangeText('');
             }}
           >
-            <Text style={styles.textStyle}>Cancel Task</Text>
+            <Text style={modalStyle.textStyle}>
+              {t('home.modal.button.cancel')}
+            </Text>
           </Pressable>
           <Pressable
-            style={[styles.button, styles.buttonClose]}
+            style={[modalStyle.button, modalStyle.buttonClose]}
             onPress={() => {
               props.alertButton(value);
               onChangeText('');
             }}
           >
-            <Text style={styles.textStyle}>Add Task</Text>
+            <Text style={modalStyle.textStyle}>
+              {t('home.modal.button.add')}
+            </Text>
           </Pressable>
         </View>
       </View>
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  titleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  buttonGroup: {},
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    width: '70%',
-    height: 200,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    position: 'absolute',
-    bottom: 10,
-    width: '50%',
-    right: 10,
-    alignItems: 'center',
-  },
-  buttonCancel: {
-    borderRadius: 20,
-    padding: 10,
-    position: 'absolute',
-    bottom: 10,
-    width: '50%',
-    left: 10,
-    alignItems: 'center',
-    backgroundColor: '#c91029',
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  input: {
-    height: 40,
-    width: '100%',
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
 
 export default TaskModal;

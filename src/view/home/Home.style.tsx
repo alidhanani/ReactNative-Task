@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-export const stylesHome = StyleSheet.create({
+const stylesHome = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
+
+export default stylesHome;

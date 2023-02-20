@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import styleCheckbox from './Checkbox.style';
 
 interface CheckboxProps {
   isChecked: boolean;
@@ -13,7 +14,7 @@ const CheckBox = (props: CheckboxProps) => {
     : 'checkbox-blank-outline';
 
   return (
-    <View style={styles.container}>
+    <View style={styleCheckbox.container}>
       <Pressable onPress={props.onPress}>
         <MaterialCommunityIcons name={iconName} size={24} color='#000' />
       </Pressable>
@@ -22,19 +23,3 @@ const CheckBox = (props: CheckboxProps) => {
 };
 
 export default CheckBox;
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: 5,
-    marginHorizontal: 5,
-  },
-  title: {
-    fontSize: 16,
-    color: '#000',
-    marginLeft: 5,
-    fontWeight: '600',
-  },
-});

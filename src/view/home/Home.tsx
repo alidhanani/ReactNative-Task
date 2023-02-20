@@ -1,9 +1,11 @@
+import 'intl';
 import React, { useEffect, useState } from 'react';
 import { Button, FlatList, SafeAreaView } from 'react-native';
 import { MockData } from '../../model';
 import TaskModal from '../../component/TaskModal';
-import { stylesHome } from './Home.style';
+import stylesHome from './Home.style';
 import { Cell } from '../../component/Cell';
+import { Locale } from '../../locale';
 
 interface HomeScreenProps {
   navigation: any;
@@ -13,6 +15,7 @@ const Home = ({ navigation }: HomeScreenProps) => {
   const [visible, setVisible] = useState(false);
   const [reload, setReload] = useState(false);
   const [check, setCheck] = useState<boolean>(false);
+  const { t } = Locale();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -60,7 +63,7 @@ const Home = ({ navigation }: HomeScreenProps) => {
         )}
         keyExtractor={(item) => item.Title}
       />
-      <Button title='Add Tasks' onPress={() => setVisible(true)} />
+      <Button title={t('home.button.title')} onPress={() => setVisible(true)} />
     </SafeAreaView>
   );
 };

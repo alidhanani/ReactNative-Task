@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Text, TouchableOpacity, View, Image, TextInput } from 'react-native';
-import { stylesDetail } from './Detail.style';
+import stylesDetail from './Detail.style';
 import { MockData } from '../../model';
 import CheckBox from '../../component/Checkbox';
 

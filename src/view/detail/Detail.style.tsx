@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const stylesDetail = StyleSheet.create({
+const stylesDetail = StyleSheet.create({
   item: {
     flexDirection: 'row',
     padding: 5,
@@ -27,3 +27,5 @@ export const stylesDetail = StyleSheet.create({
     fontSize: 14,
   },
 });
+
+export default stylesDetail;
